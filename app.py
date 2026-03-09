@@ -23,7 +23,7 @@ def get_llm(temperature=0.7):
     if not api_key or api_key == "your_api_key_here":
         raise ValueError("Please set your GEMINI_API_KEY in the .env file")
     return ChatGoogleGenerativeAI(
-        model="gemini-2.0-flash",
+        model="gemini-3.1-pro-preview",
         google_api_key=api_key,
         temperature=temperature,
     )
