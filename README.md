@@ -1,129 +1,122 @@
-# 🤖 Deep Agent — AI Learning Program
+# 🤖🧠 Deep Agent
 
-A sleek **Flask + LangChain + Gemini** web application showcasing 5 powerful AI features in a single-page interface. Built for learning and exploring what modern AI can do.
+A **Flask + LangChain + Gemini** application showcasing 5 powerful AI features in a single-page interface.
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python&logoColor=white)
-![Flask](https://img.shields.io/badge/Flask-3.1-green?logo=flask&logoColor=white)
-![Gemini](https://img.shields.io/badge/Gemini-2.0_Flash-orange?logo=google&logoColor=white)
-![LangChain](https://img.shields.io/badge/LangChain-0.3-purple)
+> Looking to learn how LLMs, prompt engineering, and LangChain work together? **Deep Agent** is a hands-on learning program that brings it all to life.
 
----
+## Quick Install
+
+```bash
+pip install -r requirements.txt
+```
+
+## 🤔 What is this?
+
+Deep Agent is a learning-focused web application that demonstrates how to build AI-powered features using **Google's Gemini 2.0 Flash** model through **LangChain**. Rather than a single chatbot, it showcases five distinct AI capabilities — each with tailored prompts, temperature settings, and output parsing — so you can see how the same LLM backbone powers very different experiences.
+
+```
+deep-agent/
+├── app.py              # Flask backend — all 5 AI feature routes
+├── requirements.txt    # Python dependencies
+├── .env.example        # Environment variable template
+├── templates/
+│   └── index.html      # Single-page frontend
+└── static/
+    ├── script.js       # Frontend interactivity & API calls
+    └── style.css       # Styling & animations
+```
 
 ## ✨ Features
 
-| # | Feature | Description |
-|---|---------|-------------|
-| 1 | **💬 AI Chat** | Multi-turn conversational chatbot with context memory (last 20 messages) |
-| 2 | **📝 Text Summarizer** | Summarize long text in 3 styles — bullet points, paragraph, or TL;DR |
-| 3 | **💻 Code Generator** | Generate production-quality code from natural language in any language |
-| 4 | **🌐 Translator** | Translate text between languages with auto-detection and cultural notes |
-| 5 | **🔍 Content Analyzer** | Analyze text for sentiment, topics, named entities, and readability |
+### 💬 AI Chat
+Multi-turn conversational chatbot with **context memory** (retains last 20 messages). Uses `MessagesPlaceholder` for seamless conversation history.
 
----
+### 📝 Text Summarizer
+Summarize long text in **3 styles**:
+- `bullets` — structured bullet points
+- `paragraph` — concise paragraph
+- `tldr` — 1-2 sentence TL;DR + key takeaways
 
-## 🛠️ Tech Stack
+### 💻 Code Generator
+Generate **production-quality code** from natural language prompts. Supports any programming language — Python, JavaScript, Rust, Go, and more.
 
-- **Backend:** Flask, Python
-- **AI/LLM:** Google Gemini 2.0 Flash via LangChain
-- **Frontend:** Vanilla HTML, CSS, JavaScript (single-page app)
-- **Markdown Rendering:** Client-side markdown-to-HTML conversion
+### 🌐 Translator
+Translate text between languages with **auto-detection** and cultural/contextual notes. Supports all major languages.
 
----
+### 🔍 Content Analyzer
+Analyze text for:
+- **Sentiment & Tone** — emotional analysis with 1-10 rating
+- **Named Entities** — people, places, organizations, dates
+- **Key Topics** — ranked with confidence percentages
+- **Readability** — reading level and complexity
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
 - **Python 3.10+**
-- A **Google Gemini API key** — get one free at [Google AI Studio](https://aistudio.google.com/apikey)
+- A **Gemini API Key** — get one free at [Google AI Studio](https://aistudio.google.com/apikey)
 
-### Installation
+### Setup
 
-1. **Clone the repository**
+```bash
+# Clone the repo
+git clone https://github.com/Mukuloli/deep-agent.git
+cd deep-agent
 
-   ```bash
-   git clone https://github.com/Mukuloli/deep-agent.git
-   cd deep-agent
-   ```
+# Create & activate virtual environment
+python -m venv venv
+venv\Scripts\activate        # Windows
+# source venv/bin/activate   # macOS / Linux
 
-2. **Create a virtual environment**
+# Install dependencies
+pip install -r requirements.txt
 
-   ```bash
-   python -m venv venv
-
-   # Windows
-   venv\Scripts\activate
-
-   # macOS / Linux
-   source venv/bin/activate
-   ```
-
-3. **Install dependencies**
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Set up your API key**
-
-   Copy the example env file and add your key:
-
-   ```bash
-   cp .env.example .env
-   ```
-
-   Then edit `.env`:
-
-   ```
-   GEMINI_API_KEY=your_actual_api_key_here
-   ```
-
-5. **Run the app**
-
-   ```bash
-   python app.py
-   ```
-
-   Open **http://localhost:5000** in your browser. 🎉
-
----
-
-## 📁 Project Structure
-
-```
-deep-agent/
-├── app.py              # Flask backend with all API routes
-├── requirements.txt    # Python dependencies
-├── .env.example        # Environment variable template
-├── .gitignore          # Git ignore rules
-├── templates/
-│   └── index.html      # Single-page HTML frontend
-└── static/
-    ├── script.js       # Frontend interactivity & API calls
-    └── style.css       # Styling
+# Configure your API key
+cp .env.example .env
+# Edit .env and add your GEMINI_API_KEY
 ```
 
----
+### Run
 
-## 🔌 API Endpoints
+```bash
+python app.py
+```
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `GET` | `/` | Serves the main page |
-| `POST` | `/api/chat` | Send a chat message (`message`) |
-| `POST` | `/api/chat/clear` | Clear chat history |
-| `POST` | `/api/summarize` | Summarize text (`text`, `style`) |
-| `POST` | `/api/code` | Generate code (`prompt`, `language`) |
-| `POST` | `/api/translate` | Translate text (`text`, `source`, `target`) |
-| `POST` | `/api/analyze` | Analyze text (`text`, `type`) |
+The app will be live at **http://localhost:5000** 🚀
 
-All POST endpoints accept JSON and return `{ "response": "..." }` on success or `{ "error": "..." }` on failure.
+## 🔌 API Reference
 
----
+All endpoints accept `POST` with JSON body and return `{ "response": "..." }`.
 
-## 📄 License
+| Endpoint | Params | Description |
+|----------|--------|-------------|
+| `/api/chat` | `message` | Send a chat message |
+| `/api/chat/clear` | — | Clear conversation history |
+| `/api/summarize` | `text`, `style` | Summarize text |
+| `/api/code` | `prompt`, `language` | Generate code |
+| `/api/translate` | `text`, `source`, `target` | Translate text |
+| `/api/analyze` | `text`, `type` | Analyze content |
 
-This project is open-source and available for learning purposes.
+## 📦 Dependencies
+
+```
+flask==3.1.0
+langchain==0.3.20
+langchain-google-genai==2.1.3
+python-dotenv==1.1.0
+markdown==3.7
+```
+
+## 📖 Resources
+
+- [LangChain Docs](https://docs.langchain.com/) — LangChain documentation
+- [Gemini API](https://ai.google.dev/) — Google Gemini API reference
+- [Flask Docs](https://flask.palletsprojects.com/) — Flask documentation
+
+## 💁 Contributing
+
+Contributions are welcome! Whether it's a new AI feature, improved UI, or better documentation — feel free to open an issue or submit a PR.
 
 ---
 

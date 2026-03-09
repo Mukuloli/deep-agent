@@ -26,7 +26,6 @@ def get_llm(temperature=0.7):
         model="gemini-2.0-flash",
         google_api_key=api_key,
         temperature=temperature,
-        convert_system_message_to_human=True,
     )
 
 
@@ -147,15 +146,20 @@ def generate_code():
 
         prompt = ChatPromptTemplate.from_messages([
             SystemMessage(content=(
-                f"You are an expert {language} programmer. "
-                "Generate clean, well-commented, production-quality code. "
+                f"You are a helpful {language} programming teacher. "
+                "Generate simple, easy-to-understand code that a beginner can follow. "
+                "Rules:\n"
+                "- Keep the code short and clean\n"
+                "- Add simple comments explaining each step\n"
+                "- Use easy variable names that make sense\n"
+                "- No complex or advanced patterns\n"
                 "Always include:\n"
-                "1. A brief explanation of the approach\n"
+                "1. A short explanation of what the code does (2-3 lines max)\n"
                 "2. The complete code in a markdown code block\n"
-                "3. Example usage or how to run it\n"
-                "Use markdown formatting throughout."
+                "3. Expected output or how to run it\n"
+                "Use markdown formatting."
             )),
-            ("human", "Write {language} code for: {prompt}"),
+            ("human", "Write simple {language} code for: {prompt}"),
         ])
 
         chain = prompt | llm | StrOutputParser()

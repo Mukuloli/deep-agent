@@ -286,7 +286,7 @@ async function generateCode() {
 }
 
 // ═══════ TRANSLATOR ═══════
-async function translate() {
+async function translateText() {
     const text = document.getElementById('translateInput').value.trim();
     if (!text) return showToast('Please enter text to translate');
 
