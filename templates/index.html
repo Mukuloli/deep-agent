@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deep Agent — AI Learning Platform</title>
+    <meta name="description" content="Learn powerful AI features with Deep Agent powered by Gemini and LangChain" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+    <!-- ── Animated Background ── -->
+    <div class="bg-animation">
+        <div class="bg-orb bg-orb-1"></div>
+        <div class="bg-orb bg-orb-2"></div>
+        <div class="bg-orb bg-orb-3"></div>
+    </div>
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <span class="logo-icon">🧠</span>
+                <div>
+                    <h1 class="logo-text">Deep Agent</h1>
+                    <span class="logo-subtitle">Gemini + LangChain</span>
+                </div>
+            </div>
+        </div>
+
+        <nav class="nav-menu">
+            <button class="nav-item active" data-feature="chat" id="nav-chat">
+                <span class="nav-icon">💬</span>
+                <span class="nav-label">AI Chat</span>
+                <span class="nav-badge">Live</span>
+            </button>
+            <button class="nav-item" data-feature="summarizer" id="nav-summarizer">
+                <span class="nav-icon">📝</span>
+                <span class="nav-label">Summarizer</span>
+            </button>
+            <button class="nav-item" data-feature="code" id="nav-code">
+                <span class="nav-icon">💻</span>
+                <span class="nav-label">Code Generator</span>
+            </button>
+            <button class="nav-item" data-feature="translate" id="nav-translate">
+                <span class="nav-icon">🌐</span>
+                <span class="nav-label">Translator</span>
+            </button>
+            <button class="nav-item" data-feature="analyze" id="nav-analyze">
+                <span class="nav-icon">🔍</span>
+                <span class="nav-label">Analyzer</span>
+            </button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="tech-stack">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">Flask</span>
+                <span class="tech-tag">LangChain</span>
+                <span class="tech-tag">Gemini</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ── Mobile Header ── -->
+    <header class="mobile-header">
+        <button class="menu-toggle" id="menuToggle">☰</button>
+        <span class="mobile-title">🧠 Deep Agent</span>
+    </header>
+
+    <!-- ── Main Content ── -->
+    <main class="main-content" id="mainContent">
+
+        <!-- ═══════ CHAT PANEL ═══════ -->
+        <section class="feature-panel active" id="panel-chat">
+            <div class="panel-header">
+                <div>
+                    <h2 class="panel-title">💬 AI Chat</h2>
+                    <p class="panel-desc">Multi-turn conversation powered by LangChain message history</p>
+                </div>
+                <button class="btn btn-ghost" onclick="clearChat()" id="clearChatBtn">🗑️ Clear</button>
+            </div>
+
+            <div class="chat-container" id="chatContainer">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message assistant-message">
+                        <div class="message-avatar">🤖</div>
+                        <div class="message-content">
+                            <p>Hello! I'm <strong>Deep Agent</strong>, powered by Gemini via LangChain. I can remember our conversation context. Ask me anything!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <div class="input-wrapper">
+                    <textarea class="chat-input" id="chatInput" placeholder="Type your message..." rows="1"></textarea>
+                    <button class="btn btn-primary send-btn" onclick="sendChat()" id="sendChatBtn">
+                        <span class="btn-text">Send</span>
+                        <span class="btn-icon">➤</span>
+                    </button>
+                </div>
+                <p class="input-hint">Press <kbd>Enter</kbd> to send, <kbd>Shift+Enter</kbd> for new line</p>
+            </div>
+        </section>
+
+        <!-- ═══════ SUMMARIZER PANEL ═══════ -->
+        <section class="feature-panel" id="panel-summarizer">
+            <div class="panel-header">
+                <div>
+                    <h2 class="panel-title">📝 Text Summarizer</h2>
+                    <p class="panel-desc">Transform long text into concise summaries using prompt engineering</p>
+                </div>
+            </div>
+
+            <div class="feature-body">
+                <div class="input-group">
+                    <label class="input-label">Summary Style</label>
+                    <div class="style-selector">
+                        <button class="style-btn active" data-style="bullets" id="style-bullets">📋 Bullet Points</button>
+                        <button class="style-btn" data-style="paragraph" id="style-paragraph">📄 Paragraph</button>
+                        <button class="style-btn" data-style="tldr" id="style-tldr">⚡ TL;DR</button>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label" for="summarizeInput">Paste your text</label>
+                    <textarea class="text-input" id="summarizeInput" rows="8" placeholder="Paste a long article, report, or any text you want summarized..."></textarea>
+                </div>
+
+                <button class="btn btn-primary btn-full" onclick="summarize()" id="summarizeBtn">
+                    ✨ Summarize Text
+                </button>
+
+                <div class="output-area hidden" id="summarizeOutput">
+                    <div class="output-header">
+                        <span class="output-label">Summary</span>
+                        <button class="btn btn-ghost btn-sm" onclick="copyOutput('summarizeResult')">📋 Copy</button>
+                    </div>
+                    <div class="output-content" id="summarizeResult"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════ CODE GENERATOR PANEL ═══════ -->
+        <section class="feature-panel" id="panel-code">
+            <div class="panel-header">
+                <div>
+                    <h2 class="panel-title">💻 Code Generator</h2>
+                    <p class="panel-desc">Generate production-quality code in any language from natural language</p>
+                </div>
+            </div>
+
+            <div class="feature-body">
+                <div class="input-group">
+                    <label class="input-label">Programming Language</label>
+                    <div class="lang-selector">
+                        <button class="lang-btn active" data-lang="python" id="lang-python">🐍 Python</button>
+                        <button class="lang-btn" data-lang="javascript" id="lang-javascript">🟨 JavaScript</button>
+                        <button class="lang-btn" data-lang="java" id="lang-java">☕ Java</button>
+                        <button class="lang-btn" data-lang="cpp" id="lang-cpp">⚙️ C++</button>
+                        <button class="lang-btn" data-lang="rust" id="lang-rust">🦀 Rust</button>
+                        <button class="lang-btn" data-lang="go" id="lang-go">🐹 Go</button>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label" for="codeInput">Describe what you want to build</label>
+                    <textarea class="text-input" id="codeInput" rows="4" placeholder="e.g., A function that finds the longest palindrome substring in a string"></textarea>
+                </div>
+
+                <button class="btn btn-primary btn-full" onclick="generateCode()" id="generateCodeBtn">
+                    🚀 Generate Code
+                </button>
+
+                <div class="output-area hidden" id="codeOutput">
+                    <div class="output-header">
+                        <span class="output-label">Generated Code</span>
+                        <button class="btn btn-ghost btn-sm" onclick="copyOutput('codeResult')">📋 Copy</button>
+                    </div>
+                    <div class="output-content code-output" id="codeResult"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════ TRANSLATOR PANEL ═══════ -->
+        <section class="feature-panel" id="panel-translate">
+            <div class="panel-header">
+                <div>
+                    <h2 class="panel-title">🌐 Translator</h2>
+                    <p class="panel-desc">Translate text between 20+ languages with cultural context</p>
+                </div>
+            </div>
+
+            <div class="feature-body">
+                <div class="translate-controls">
+                    <div class="input-group">
+                        <label class="input-label" for="sourceLang">From</label>
+                        <select class="select-input" id="sourceLang">
+                            <option value="Auto-Detect">🔍 Auto-Detect</option>
+                            <option value="English">🇬🇧 English</option>
+                            <option value="Hindi">🇮🇳 Hindi</option>
+                            <option value="Spanish">🇪🇸 Spanish</option>
+                            <option value="French">🇫🇷 French</option>
+                            <option value="German">🇩🇪 German</option>
+                            <option value="Chinese">🇨🇳 Chinese</option>
+                            <option value="Japanese">🇯🇵 Japanese</option>
+                            <option value="Korean">🇰🇷 Korean</option>
+                            <option value="Arabic">🇸🇦 Arabic</option>
+                            <option value="Portuguese">🇧🇷 Portuguese</option>
+                            <option value="Russian">🇷🇺 Russian</option>
+                            <option value="Italian">🇮🇹 Italian</option>
+                        </select>
+                    </div>
+                    <button class="swap-btn" onclick="swapLanguages()" id="swapLangBtn">⇄</button>
+                    <div class="input-group">
+                        <label class="input-label" for="targetLang">To</label>
+                        <select class="select-input" id="targetLang">
+                            <option value="English">🇬🇧 English</option>
+                            <option value="Hindi" selected>🇮🇳 Hindi</option>
+                            <option value="Spanish">🇪🇸 Spanish</option>
+                            <option value="French">🇫🇷 French</option>
+                            <option value="German">🇩🇪 German</option>
+                            <option value="Chinese">🇨🇳 Chinese</option>
+                            <option value="Japanese">🇯🇵 Japanese</option>
+                            <option value="Korean">🇰🇷 Korean</option>
+                            <option value="Arabic">🇸🇦 Arabic</option>
+                            <option value="Portuguese">🇧🇷 Portuguese</option>
+                            <option value="Russian">🇷🇺 Russian</option>
+                            <option value="Italian">🇮🇹 Italian</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label" for="translateInput">Enter text to translate</label>
+                    <textarea class="text-input" id="translateInput" rows="5" placeholder="Type or paste text to translate..."></textarea>
+                </div>
+
+                <button class="btn btn-primary btn-full" onclick="translate()" id="translateBtn">
+                    🌍 Translate
+                </button>
+
+                <div class="output-area hidden" id="translateOutput">
+                    <div class="output-header">
+                        <span class="output-label">Translation</span>
+                        <button class="btn btn-ghost btn-sm" onclick="copyOutput('translateResult')">📋 Copy</button>
+                    </div>
+                    <div class="output-content" id="translateResult"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════ ANALYZER PANEL ═══════ -->
+        <section class="feature-panel" id="panel-analyze">
+            <div class="panel-header">
+                <div>
+                    <h2 class="panel-title">🔍 Content Analyzer</h2>
+                    <p class="panel-desc">Extract insights — sentiment, entities, topics, and readability</p>
+                </div>
+            </div>
+
+            <div class="feature-body">
+                <div class="input-group">
+                    <label class="input-label">Analysis Type</label>
+                    <div class="style-selector">
+                        <button class="analysis-btn active" data-type="full" id="analysis-full">🎯 Full Analysis</button>
+                        <button class="analysis-btn" data-type="sentiment" id="analysis-sentiment">😊 Sentiment</button>
+                        <button class="analysis-btn" data-type="entities" id="analysis-entities">🏷️ Entities</button>
+                        <button class="analysis-btn" data-type="topics" id="analysis-topics">📊 Topics</button>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label" for="analyzeInput">Paste text to analyze</label>
+                    <textarea class="text-input" id="analyzeInput" rows="6" placeholder="Paste any text — news article, review, essay, email — and get detailed analysis..."></textarea>
+                </div>
+
+                <button class="btn btn-primary btn-full" onclick="analyze()" id="analyzeBtn">
+                    🔬 Analyze Content
+                </button>
+
+                <div class="output-area hidden" id="analyzeOutput">
+                    <div class="output-header">
+                        <span class="output-label">Analysis Results</span>
+                        <button class="btn btn-ghost btn-sm" onclick="copyOutput('analyzeResult')">📋 Copy</button>
+                    </div>
+                    <div class="output-content" id="analyzeResult"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
